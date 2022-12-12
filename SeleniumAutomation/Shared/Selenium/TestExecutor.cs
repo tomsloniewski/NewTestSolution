@@ -18,6 +18,12 @@ public class TestExecutor
 
         // set implicit wait
         driver.Manage().Timeouts().ImplicitWait = new TimeSpan(0, 0, 0, 0, configuration.TimeoutMiliseconds);
+
+        // maximize the window
+        if (configuration.MaximizeWindow)
+        {
+            driver.Manage().Window.Maximize();
+        }
     }
 
 
