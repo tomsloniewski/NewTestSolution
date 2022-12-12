@@ -23,7 +23,11 @@ public class RESTClient
     public async Task<T> PostAsync<T>(RestRequest request)
     {
         RestResponse response = await client.PostAsync(request);
-        IBaseResponse deserialized = JsonConvert.DeserializeObject<T>(response.Content) as IBaseResponse;
+        IBaseResponse? deserialized = JsonConvert.DeserializeObject<T>(response.Content) as IBaseResponse;
+        if (deserialized is null)
+        {
+            throw new Exception("PostAsync() -> Could not deserialize the object");
+        }
         deserialized.ResponseObject = response;
         return (T) deserialized;
     }
@@ -31,7 +35,11 @@ public class RESTClient
     public async Task<T> GetAsync<T>(RestRequest request)
     {
         RestResponse response = await client.GetAsync(request);
-        IBaseResponse deserialized = JsonConvert.DeserializeObject<T>(response.Content) as IBaseResponse;
+        IBaseResponse? deserialized = JsonConvert.DeserializeObject<T>(response.Content) as IBaseResponse;
+        if (deserialized is null)
+        {
+            throw new Exception("GetAsync() -> Could not deserialize the object");
+        }
         deserialized.ResponseObject = response;
         return (T) deserialized;
     }

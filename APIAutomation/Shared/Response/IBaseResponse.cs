@@ -4,5 +4,5 @@ namespace APIAutomation.Shared.Response;
 
 public interface IBaseResponse
 {
-    RestResponse ResponseObject { get; set; }
+    RestResponse? ResponseObject { get; set; }
 }

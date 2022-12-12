@@ -13,7 +13,7 @@ public class RequestBuilder
         request = new RestRequest(resource, method);
     }
 
-    public RequestBuilder AddPathParameter(string pathParameterValue, string pathParameterName = null)
+    public RequestBuilder AddPathParameter(string pathParameterValue, string? pathParameterName = null)
     {
         if (pathParameterName is not null)
         {
