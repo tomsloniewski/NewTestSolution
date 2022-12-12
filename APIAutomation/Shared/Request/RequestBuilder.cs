@@ -5,37 +5,37 @@ namespace APIAutomation.Shared.Request;
 
 public class RequestBuilder
 {
-    private RestRequest _request;
+    private RestRequest request;
 
     public RequestBuilder(BaseTest test, string endpoint, Method method)
     {
         string resource = test.Configuration.BaseUrl + endpoint;
-        _request = new RestRequest(resource, method);
+        request = new RestRequest(resource, method);
     }
 
     public RequestBuilder AddPathParameter(string pathParameterValue, string pathParameterName = null)
     {
         if (pathParameterName is not null)
         {
-            _request.Resource = $"{_request.Resource}/{pathParameterName}";
+            request.Resource = $"{request.Resource}/{pathParameterName}";
         }
-        _request.Resource = $"{_request.Resource}/{pathParameterValue}";
+        request.Resource = $"{request.Resource}/{pathParameterValue}";
         return this;
     }
     public RequestBuilder AddBody(object body)
     {
-        _request.AddBody(body);
+        request.AddBody(body);
         return this;
     }
 
     public RequestBuilder AddHeader(string name, string value)
     {
-        _request.AddHeader(name, value);
+        request.AddHeader(name, value);
         return this;
     }
 
     public RestRequest Build()
     {
-        return _request;
+        return request;
     }
 }

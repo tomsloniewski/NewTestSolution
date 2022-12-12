@@ -3,28 +3,26 @@ using APIAutomation.Shared.Response;
 using Newtonsoft.Json;
 using RestSharp;
 
-namespace APIAutomation.Client;
+namespace APIAutomation.Shared.Client;
 
 public class RESTClient
 {
-    private readonly RestClient Client;
-    private readonly string BaseUrl;
-    private readonly JsonSerializer Serializer;
+    private readonly RestClient client;
+    private readonly string baseUrl;
 
     public RESTClient(Configuration configuration)
     {
-        BaseUrl = configuration.BaseUrl!;
-        RestClientOptions options = new RestClientOptions(this.BaseUrl)
+        baseUrl = configuration.BaseUrl!;
+        RestClientOptions options = new RestClientOptions(this.baseUrl)
         {
             MaxTimeout = configuration.MaxTimeout,
         };
-        Client = new RestClient(options);
-        Serializer = new JsonSerializer();
+        client = new RestClient(options);
     }
 
     public async Task<T> PostAsync<T>(RestRequest request)
     {
-        RestResponse response = await Client.PostAsync(request);
+        RestResponse response = await client.PostAsync(request);
         IBaseResponse deserialized = JsonConvert.DeserializeObject<T>(response.Content) as IBaseResponse;
         deserialized.ResponseObject = response;
         return (T) deserialized;
@@ -32,7 +30,7 @@ public class RESTClient
 
     public async Task<T> GetAsync<T>(RestRequest request)
     {
-        RestResponse response = await Client.GetAsync(request);
+        RestResponse response = await client.GetAsync(request);
         IBaseResponse deserialized = JsonConvert.DeserializeObject<T>(response.Content) as IBaseResponse;
         deserialized.ResponseObject = response;
         return (T) deserialized;

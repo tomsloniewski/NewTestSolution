@@ -1,4 +1,4 @@
-﻿using APIAutomation.Client;
+﻿using APIAutomation.Shared.Client;
 using Microsoft.Extensions.Configuration;
 using RestSharp;
 
